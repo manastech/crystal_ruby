@@ -1,4 +1,4 @@
-require "lib_ruby"
+require "./lib_ruby"
 
 struct Nil
   def to_ruby
@@ -32,8 +32,6 @@ module Ruby
   end
 
   struct Value
-    @value :: LibRuby::VALUE
-
     def initialize(@value : LibRuby::VALUE)
     end
 
@@ -54,5 +52,5 @@ module Ruby
 end
 
 macro ruby_extension(name, code)
-  {{ run "processor", name, code }}
+  {{ run "./processor", name, code }}
 end
