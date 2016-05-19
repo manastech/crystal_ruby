@@ -4,7 +4,7 @@ include Crystal
 
 class MyVisitor < Visitor
   def initialize(name)
-    @str = StringIO.new
+    @str = MemoryIO.new
     @str << %(redefine_main("Init_#{name}") { |main| {{main}} }\n)
   end
 
@@ -13,7 +13,7 @@ class MyVisitor < Visitor
   end
 
   def visit(node : Def)
-    @str << %(_class.def "#{node.name}", #{node.args.length}, )
+    @str << %(_class.def "#{node.name}", #{node.args.size}, )
     @str << %[->(self : LibRuby::VALUE, ]
     node.args.each do |arg|
       @str << %(_#{arg.name} : LibRuby::VALUE, )
