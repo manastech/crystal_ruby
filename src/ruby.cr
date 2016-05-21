@@ -8,7 +8,7 @@ end
 
 struct Bool
   def to_ruby
-    Pointer(Void).new(self ? 0_u64 : 20_u64) as LibRuby::VALUE
+    Pointer(Void).new(self ? 20_u64 : 0_u64) as LibRuby::VALUE
   end
 end
 
