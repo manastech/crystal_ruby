@@ -2,13 +2,13 @@ require "./lib_ruby"
 
 struct Nil
   def to_ruby
-    Pointer(Void).new(8_u64) as LibRuby::VALUE
+    Pointer(Void).new(8_u64).as(LibRuby::VALUE)
   end
 end
 
 struct Bool
   def to_ruby
-    Pointer(Void).new(self ? 0_u64 : 20_u64) as LibRuby::VALUE
+    Pointer(Void).new(self ? 0_u64 : 20_u64).as(LibRuby::VALUE)
   end
 end
 
@@ -42,7 +42,7 @@ module Ruby
     def to_s(io : IO)
       str = LibRuby.rb_funcall(self, ID_TO_S, 0)
       c_str = LibRuby.rb_string_value_cstr(pointerof(str))
-      io.write Slice.new(c_str, C.strlen(c_str))
+      io.write Slice.new(c_str, LibC.strlen(c_str))
     end
   end
 

@@ -1,10 +1,10 @@
-require "compiler/crystal/**"
+require "compiler/crystal/syntax/**"
 
 include Crystal
 
 class MyVisitor < Visitor
   def initialize(name)
-    @str = MemoryIO.new
+    @str = IO::Memory.new
     @str << %(redefine_main("Init_#{name}") { |main| {{main}} }\n)
   end
 
